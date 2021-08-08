@@ -1,0 +1,23 @@
+.main-title {
+  line-height: 1.4em;
+  font-family: $font-family-secondary;
+  &--lg {
+    font-size: 76px;
+    font-weight: 700;
+  }
+  &--md {
+    font-size: 38px;
+    font-weight: 700;
+  }
+  &--sm {
+    font-size: 22px;
+    font-weight: 600;
+  }
+}
+
+.main-txt {
+  line-height: 1.3em;
+  font-family: $font-family-base;
+  font-size: 22px;
+  font-weight: 600;
+}
