@@ -1,4 +1,5 @@
 import icons from "../icons/icons";
+const $ = require("jquery"); // if we need
 import Swup from "swup";
 import Swiper from "swiper";
 import "swiper/swiper-bundle.css";
@@ -50,16 +51,21 @@ var app = {
       anchors: mainSectionArrName,
       menu: "#mainMenu",
       autoScrolling: true,
-      afterLoad: function (anchorLink, index) {
-        var currentIndex = index.index;
-        console.log(currentIndex);
-        if (currentIndex === mainSection.length - 1) {
+      normalScrollElements: ".scroll-normal",
+      afterLoad: function (origin, destination, direction) {
+        var currentIndex = destination.index;
+
+        // header title inner html
+        document.querySelector(".header__title").innerHTML = destination.anchor;
+
+        // indicator up down fn
+        if (destination.isLast == true) {
           downUpBtn.classList.add("indicator-down--up");
         } else {
           downUpBtn.classList.remove("indicator-down--up");
         }
         downUpBtn.addEventListener("click", () => {
-          if (currentIndex === mainSection.length - 1) {
+          if (destination.isLast == true) {
             fullpage_api.moveTo(1);
           } else {
             fullpage_api.moveTo(currentIndex + 2);
@@ -173,6 +179,8 @@ var app = {
     }
   },
 
+  ShowMoreFn() {},
+
   load() {
     console.log("load");
   },
@@ -180,9 +188,10 @@ var app = {
     console.log("resized");
   },
 
-  swiperTest() {
-    const swiper = new Swiper(".swiper-container", {
-      loop: true,
+  portfolioSliderFn() {
+    const portfolioSwiper = new Swiper(".js-portfolio-slider", {
+      loop: false,
+      slidesPerView: 1,
     });
   },
 
@@ -192,7 +201,8 @@ var app = {
     app.fullpageFn();
     app.headerColorFn();
     app.headerLanguageFn();
-    app.swiperTest();
+    app.ShowMoreFn();
+    app.portfolioSliderFn();
   },
 };
 
