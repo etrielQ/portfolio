@@ -51,14 +51,31 @@ var app = {
     });
   },
 
+  createPreloaderFn(isActive) {
+    var isActived = isActive;
+    // console.log(isActive);
+    var prelaoder = document.createElement("div");
+    prelaoder.classList.add("preloader");
+    prelaoder.appendChild(document.createElement("div"));
+    prelaoder.querySelector("div").classList.add("preloader__icon");
+
+    if (isActived === true) {
+      document.body.appendChild(prelaoder);
+    } else {
+      document
+        .querySelector(".preloader")
+        .parentNode.removeChild(document.querySelector(".preloader"));
+    }
+  },
+
   headerColorFn() {
-    const headerLanguageBtn = document.querySelector(".js-header-color-btn");
-    if (headerLanguageBtn) {
+    const headerColorBtn = document.querySelector(".js-header-color-btn");
+    if (headerColorBtn) {
       window.addEventListener("click", function (e) {
         if (document.querySelector(".header__color").contains(e.target)) {
-          headerLanguageBtn.parentNode.classList.toggle("opened");
+          headerColorBtn.parentNode.classList.toggle("opened");
         } else {
-          headerLanguageBtn.parentNode.classList.remove("opened");
+          headerColorBtn.parentNode.classList.remove("opened");
         }
       });
       window.addEventListener("click", function (e) {
@@ -70,6 +87,47 @@ var app = {
             .parentNode.classList.add("opened");
         }
       });
+      const colorItem = document.querySelectorAll(".js-header-color");
+      const themeColor = localStorage.getItem("themeColor");
+      for (let index = 0; index < colorItem.length; index++) {
+        const element = colorItem[index];
+        const elementColor = element.getAttribute("style");
+        const elementColorName = elementColor.slice(0, -1).split(": ");
+        const colorItemActive = document.querySelectorAll(
+          ".js-header-color.active"
+        );
+        element.addEventListener("click", (colorSet) => {
+          localStorage.setItem("themeColor", "#fff500");
+          colorSet = elementColorName[1];
+          setTimeout(() => {
+            document.documentElement.style.setProperty(
+              "--color-primary",
+              elementColorName[1]
+            );
+          }, 300);
+          let colorItemActive = document.querySelectorAll(
+            ".js-header-color.active"
+          );
+          colorItemActive.forEach((eActive) => {
+            eActive.classList.remove("active");
+          });
+          if (colorSet == elementColorName[1]) {
+            app.createPreloaderFn(true);
+            localStorage.setItem("themeColor", elementColorName[1]);
+            setTimeout(() => {
+              app.createPreloaderFn(false);
+              element.classList.add("active");
+            }, 500);
+          }
+        });
+        if (themeColor == elementColorName[1]) {
+          colorItemActive.forEach((eActive) => {
+            eActive.classList.remove("active");
+          });
+          element.classList.add("active");
+        }
+      }
+      document.documentElement.style.setProperty("--color-primary", themeColor);
     }
   },
 

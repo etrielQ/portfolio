@@ -35,7 +35,7 @@
     position: relative;
     &.opened {
       .popup-card {
-        transform: translateX(-50%) translateY(0px) scale(1);
+        transform: translateX(-50%) scale(1);
         opacity: 1;
         visibility: visible;
         pointer-events: all;
@@ -75,7 +75,7 @@
     position: relative;
     &.opened {
       .popup-card {
-        transform: translateX(0) translateY(0px) scale(1);
+        transform: translateX(0) scaleY(1);
         opacity: 1;
         visibility: visible;
         pointer-events: all;
@@ -86,7 +86,7 @@
       width: auto;
       right: 22.5px;
       left: auto;
-      transform: translateX(0%) translateY(40px) scale(1.3);
+      transform: translateX(0%) scale(1.3);
     }
     &__button {
       display: flex;
@@ -103,6 +103,7 @@
       }
       .header__color__item {
         margin-bottom: 0;
+        z-index: 1;
       }
       &__icon {
         transform: rotate(90deg);
@@ -117,13 +118,31 @@
       height: 40px;
       display: block;
       border-radius: 50%;
-      border: 3px solid transparent;
       margin-bottom: 25px;
+      position: relative;
+      &:before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: -1;
+        transform: translate(-50%, -50%) scale(1.3);
+        border: 3px solid var(--color-black);
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        opacity: 0;
+        pointer-events: none;
+        transition: $transition;
+      }
       &:last-child {
         margin-bottom: 0;
       }
       &.active {
-        border-color: var(--color-black);
+        &:before {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 1;
+        }
       }
     }
   }
