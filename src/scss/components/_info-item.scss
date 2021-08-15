@@ -14,7 +14,7 @@
     justify-content: flex-start;
   }
   &__icon {
-    color: $c-black;
+    color: var(--color-black);
     width: 65px;
     height: 62px;
     display: flex;
@@ -30,8 +30,8 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: $c-yellow;
-      border: 3px solid $c-black;
+      background-color: var(--color-primary);
+      border: 3px solid var(--color-black);
       z-index: -1;
       transform: rotate(-90deg);
       border-radius: 30% 70% 70% 30% / 50% 50% 50% 50%;
@@ -45,10 +45,10 @@
     font-weight: 700;
     font-size: 20px;
     margin-left: 20px;
-    color: $c-black;
+    color: var(--color-black);
   }
   &--bg {
-    background: #fff;
+    background-color: #fff;
     padding: 15px 45px;
     border-radius: 55px;
     user-select: none;

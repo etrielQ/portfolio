@@ -9,6 +9,9 @@ $transition: 0.3s cubic-bezier(0.29, 0.13, 0.27, 0.74);
 $transition-fast: 0.2s cubic-bezier(0.29, 0.13, 0.27, 0.74);
 
 /* Colors */
-$c-black: #000000;
-$c-gray: #6a6a6a;
-$c-yellow: #fff500;
+:root {
+  --color-primary: #fff500;
+  --color-primary-second: #e2e700;
+  --color-black: #000000;
+  --color-gray: #6a6a6a;
+}

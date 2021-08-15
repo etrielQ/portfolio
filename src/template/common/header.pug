@@ -7,7 +7,22 @@ header.header
                 span
                 span
         .header__title WELCOME 
-        .header__language 
-            .header__language__button
-                span.header__language__button__txt EN
-                span.header__language__button__icon.icon.icon-font(data-icon-id="iconAngle")
+        .header__right 
+            .header__color 
+                .header__color__button.js-header-color-btn
+                    .header__color__button__txt Theme Color:
+                    span.header__color__item.active(style="background-color: var(--color-primary);")
+                    span.header__color__button__icon.icon.icon-font(data-icon-id="iconAngle")
+                .header__color__wrapper.popup-card 
+                    span.header__color__item.active(style="background-color: var(--color-primary);")
+                    span.header__color__item(style="background-color: #34baeb;")
+                    span.header__color__item(style="background-color: #eb3453;")
+                    span.header__color__item(style="background-color: #34eb52;")
+                    span.header__color__item(style="background-color: #8334eb;")
+            .header__language 
+                .header__language__button.js-header-language-btn
+                    span.header__language__txt.active EN
+                    span.header__language__button__icon.icon.icon-font(data-icon-id="iconAngle")
+                .header__language__wrapper.popup-card
+                    span.header__language__txt.active EN
+                    span.header__language__txt TR

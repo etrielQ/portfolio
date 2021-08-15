@@ -70,7 +70,7 @@ section {
 // Body
 //
 // 1. Remove the margin in all browsers.
-// 2. As a best practice, apply a default `background-color`.
+// 2. As a best practice, apply a default `background-color-color`.
 // 3. Set an explicit initial text-align value so that we can later use the
 //    the `inherit` value on things like `<th>` elements.
 
@@ -227,7 +227,7 @@ sup {
 
 a {
   text-decoration: none;
-  background-color: transparent; // Remove the gray background on active links in IE 10.
+  background-color-color: transparent; // Remove the gray background-color on active links in IE 10.
   -webkit-text-decoration-skip: objects; // Remove gaps in links underline in iOS 8+ and Safari 8+.
 }
 
@@ -332,7 +332,7 @@ button {
   border-radius: 0;
 }
 
-// Work around a Firefox/IE bug where the transparent `button` background
+// Work around a Firefox/IE bug where the transparent `button` background-color
 // results in a loss of the default `button` focus styles.
 //
 // Credit: https://github.com/suitcss/base/

@@ -20,7 +20,7 @@
   font-family: $font-family-base;
   font-size: 22px;
   font-weight: 600;
-  color: $c-gray;
+  color: var(--color-gray);
 }
 
 .main-subtitle {
@@ -41,7 +41,7 @@
     width: 75px;
     border-radius: 30% 70% 70% 30% / 50% 50% 50% 50%;
     z-index: -1;
-    background: $c-yellow;
+    background-color: var(--color-primary);
   }
   &--centered {
     padding-left: 0;

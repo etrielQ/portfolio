@@ -50,6 +50,53 @@ var app = {
       autoScrolling: true,
     });
   },
+
+  headerColorFn() {
+    const headerLanguageBtn = document.querySelector(".js-header-color-btn");
+    if (headerLanguageBtn) {
+      window.addEventListener("click", function (e) {
+        if (document.querySelector(".header__color").contains(e.target)) {
+          headerLanguageBtn.parentNode.classList.toggle("opened");
+        } else {
+          headerLanguageBtn.parentNode.classList.remove("opened");
+        }
+      });
+      window.addEventListener("click", function (e) {
+        if (
+          document.querySelector(".header__color__wrapper").contains(e.target)
+        ) {
+          document
+            .querySelector(".header__color__wrapper")
+            .parentNode.classList.add("opened");
+        }
+      });
+    }
+  },
+
+  headerLanguageFn() {
+    const headerLanguageBtn = document.querySelector(".js-header-language-btn");
+    if (headerLanguageBtn) {
+      window.addEventListener("click", function (e) {
+        if (document.querySelector(".header__language").contains(e.target)) {
+          headerLanguageBtn.parentNode.classList.toggle("opened");
+        } else {
+          headerLanguageBtn.parentNode.classList.remove("opened");
+        }
+      });
+      window.addEventListener("click", function (e) {
+        if (
+          document
+            .querySelector(".header__language__wrapper")
+            .contains(e.target)
+        ) {
+          document
+            .querySelector(".header__language__wrapper")
+            .parentNode.classList.add("opened");
+        }
+      });
+    }
+  },
+
   load() {
     console.log("load");
   },
@@ -67,6 +114,8 @@ var app = {
     app.iconSpriteFn();
     app.load();
     app.fullpageFn();
+    app.headerColorFn();
+    app.headerLanguageFn();
     app.swiperTest();
   },
 };

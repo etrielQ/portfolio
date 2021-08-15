@@ -3,8 +3,8 @@
     font-weight: 600;
     font-size: 14px;
     padding: 8px 18px;
-    background: $c-yellow;
-    color: $c-black;
+    background-color: var(--color-primary);
+    color: var(--color-black);
     width: fit-content;
     border-radius: 20px;
   }

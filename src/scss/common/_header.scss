@@ -20,22 +20,110 @@
     font-size: 24px;
     font-weight: 700;
   }
+  &__right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    & > div {
+      margin-right: 40px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
   &__language {
+    position: relative;
+    &.opened {
+      .popup-card {
+        transform: translateX(-50%) translateY(0px) scale(1);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: all;
+        transition: $transition;
+      }
+    }
     &__button {
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      &__txt {
-        font-weight: 700;
-        font-size: 20px;
-        margin-right: 5px;
+      .header__language__txt {
+        margin-bottom: 0;
       }
       &__icon {
         transform: rotate(90deg);
         font-size: 12px;
         position: relative;
         top: 1px;
+        margin-left: 5px;
+      }
+    }
+    &__txt {
+      font-weight: 600;
+      font-size: 20px;
+      display: block;
+      margin-bottom: 25px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      &.active {
+        font-weight: 700;
+      }
+    }
+  }
+  &__color {
+    position: relative;
+    &.opened {
+      .popup-card {
+        transform: translateX(0) translateY(0px) scale(1);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: all;
+        transition: $transition;
+      }
+    }
+    .popup-card {
+      width: auto;
+      right: 22.5px;
+      left: auto;
+      transform: translateX(0%) translateY(40px) scale(1.3);
+    }
+    &__button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: #fff;
+      padding: 10px 15px;
+      border-radius: 10px;
+      &__txt {
+        font-weight: 600;
+        font-size: 20px;
+        margin-right: 15px;
+      }
+      .header__color__item {
+        margin-bottom: 0;
+      }
+      &__icon {
+        transform: rotate(90deg);
+        font-size: 12px;
+        position: relative;
+        top: 1px;
+        margin-left: 10px;
+      }
+    }
+    &__item {
+      width: 40px;
+      height: 40px;
+      display: block;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      margin-bottom: 25px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      &.active {
+        border-color: var(--color-black);
       }
     }
   }
