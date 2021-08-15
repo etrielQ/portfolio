@@ -38,6 +38,8 @@ var app = {
 
   fullpageFn() {
     const mainSection = document.querySelectorAll(".section");
+    const downUpBtn = document.querySelector(".js-indicator-up-down");
+
     let mainSectionArrName = [];
     for (let index = 0; index < mainSection.length; index++) {
       const element = mainSection[index];
@@ -48,6 +50,22 @@ var app = {
       anchors: mainSectionArrName,
       menu: "#mainMenu",
       autoScrolling: true,
+      afterLoad: function (anchorLink, index) {
+        var currentIndex = index.index;
+        console.log(currentIndex);
+        if (currentIndex === mainSection.length - 1) {
+          downUpBtn.classList.add("indicator-down--up");
+        } else {
+          downUpBtn.classList.remove("indicator-down--up");
+        }
+        downUpBtn.addEventListener("click", () => {
+          if (currentIndex === mainSection.length - 1) {
+            fullpage_api.moveTo(1);
+          } else {
+            fullpage_api.moveTo(currentIndex + 2);
+          }
+        });
+      },
     });
   },
 
@@ -104,7 +122,7 @@ var app = {
               "--color-primary",
               elementColorName[1]
             );
-          }, 300);
+          }, 500);
           let colorItemActive = document.querySelectorAll(
             ".js-header-color.active"
           );
