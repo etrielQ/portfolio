@@ -1,3 +1,42 @@
 .header {
-  background: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 5;
+  &__wrapper {
+    padding: 20px 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+  &__title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: 700;
+  }
+  &__language {
+    &__button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      &__txt {
+        font-weight: 700;
+        font-size: 20px;
+        margin-right: 5px;
+      }
+      &__icon {
+        transform: rotate(90deg);
+        font-size: 12px;
+        position: relative;
+        top: 1px;
+      }
+    }
+  }
 }

@@ -2,6 +2,7 @@ import icons from "../icons/icons";
 import Swup from "swup";
 import Swiper from "swiper";
 import "swiper/swiper-bundle.css";
+import fullpage from "fullpage.js";
 
 var app = {
   iconSpriteFn() {
@@ -34,6 +35,21 @@ var app = {
       }
     }
   },
+
+  fullpageFn() {
+    const mainSection = document.querySelectorAll(".section");
+    let mainSectionArrName = [];
+    for (let index = 0; index < mainSection.length; index++) {
+      const element = mainSection[index];
+      const elementId = element.getAttribute("data-section-id");
+      mainSectionArrName.push(elementId);
+    }
+    new fullpage("#fullpage", {
+      anchors: mainSectionArrName,
+      menu: "#mainMenu",
+      autoScrolling: true,
+    });
+  },
   load() {
     console.log("load");
   },
@@ -50,6 +66,7 @@ var app = {
   init: function () {
     app.iconSpriteFn();
     app.load();
+    app.fullpageFn();
     app.swiperTest();
   },
 };
@@ -61,15 +78,15 @@ function docResized(fn) {
   window.addEventListener("resize", fn);
 }
 docReadied(() => {
-  const swup = new Swup({
-    cache: true,
-  });
-  swup.on("contentReplaced", function () {
-    swup.options.containers.forEach(() => {
-      app.iconSpriteFn();
-      app.swiperTest();
-    });
-  });
+  // const swup = new Swup({
+  //   cache: true,
+  // });
+  // swup.on("contentReplaced", function () {
+  //   swup.options.containers.forEach(() => {
+  //     app.iconSpriteFn();
+  //     app.swiperTest();
+  //   });
+  // });
   app.init();
 });
 

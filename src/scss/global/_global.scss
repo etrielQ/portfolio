@@ -14,17 +14,6 @@ body {
   text-rendering: optimizeLegibility !important;
 }
 
-.section {
-  padding: 150px 0;
-
-  @include bp(tablet) {
-    padding: 100px 0;
-  }
-  @include bp(tablet-small) {
-    padding: 50px 0;
-  }
-}
-
 .uikit {
   &__card {
     border: 1px solid #000;
@@ -39,5 +28,37 @@ body {
     border-bottom: 1px solid #ff0000;
     margin-bottom: 20px;
     padding-bottom: 20px;
+  }
+}
+.section {
+  position: relative;
+  z-index: 1;
+
+  &-shape {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: #fff;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(100px);
+      z-index: 1;
+    }
+    &__item {
+      border-radius: 50%;
+      position: absolute;
+      z-index: -1;
+      background: radial-gradient(50% 50% at 50% 50%, #e2e700 0%, #fff500 100%);
+      opacity: 0.5;
+      transform: rotate(-15deg);
+    }
   }
 }
