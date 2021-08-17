@@ -2,6 +2,20 @@
   .swiper-container {
     overflow: initial;
   }
+  .swiper {
+    &-slide {
+      opacity: 0;
+      transition: $transition;
+
+      &-prev,
+      &-next {
+        opacity: 0 !important;
+      }
+      &-visible {
+        opacity: 1;
+      }
+    }
+  }
   &__wrapper {
     height: 100%;
     display: flex;

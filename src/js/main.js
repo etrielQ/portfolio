@@ -1,7 +1,8 @@
 import icons from "../icons/icons";
 const $ = require("jquery"); // if we need
 import Swup from "swup";
-import Swiper from "swiper";
+import Swiper, { Mousewheel } from "swiper";
+Swiper.use([Mousewheel]);
 import "swiper/swiper-bundle.css";
 import fullpage from "fullpage.js";
 
@@ -38,6 +39,16 @@ var app = {
   },
 
   fullpageFn() {
+    const portfolioSwiper = new Swiper(".js-portfolio-slider", {
+      loop: false,
+      slidesPerView: 1,
+      watchSlidesVisibility: true,
+      speed: 700,
+      mousewheel: {
+        invert: false,
+      },
+    });
+
     const mainSection = document.querySelectorAll(".section");
     const downUpBtn = document.querySelector(".js-indicator-up-down");
 
@@ -71,6 +82,39 @@ var app = {
             fullpage_api.moveTo(currentIndex + 2);
           }
         });
+
+        // portfolio fn
+        if (destination.anchor === "portfolio") {
+          function swiperScrollLock() {
+            if (portfolioSwiper.activeIndex == 0) {
+              console.log("birinci slider");
+              fullpage_api.setAllowScrolling(false, "down");
+              fullpage_api.setAllowScrolling(true, "up");
+            } else if (portfolioSwiper.activeIndex == 2) {
+              fullpage_api.setAllowScrolling(false, "up");
+              fullpage_api.setAllowScrolling(true, "down");
+              console.log("last slider");
+            } else {
+              fullpage_api.setAllowScrolling(false);
+              console.log("normal slide");
+            }
+          }
+          swiperScrollLock();
+
+          portfolioSwiper.on("slideChangeTransitionEnd", function () {
+            swiperScrollLock();
+          });
+        } else {
+          fullpage_api.setAllowScrolling(true);
+        }
+      },
+      onLeave: function (origin, destination, direction) {
+        // portfolio fn
+        // if (destination.anchor === "portfolio" && direction == "down") {
+        //   fullpage_api.setAllowScrolling(false, "down");
+        //   fullpage_api.setAllowScrolling(true, "up");
+        //   console.log("u are in portfolio");
+        // }
       },
     });
   },
@@ -179,7 +223,45 @@ var app = {
     }
   },
 
-  ShowMoreFn() {},
+  ShowMoreFn() {
+    const showMoreParent = $(".show-more");
+    const showMoreItem = $(".show-more > *");
+    const showMoreWrp = `
+    <div class="show-more__wrapper">
+    </div>`;
+    showMoreParent.each(function () {
+      if (showMoreItem.length > 3) {
+        $(this)
+          .find(showMoreItem)
+          .slice(3, showMoreItem.length)
+          .addClass("disabled");
+        $(this).append(
+          `<span class="show-more__btn">+${
+            $(this).find(showMoreItem).length - 3
+          }</span>`
+        );
+        $(this).append(showMoreWrp);
+        var clonedItems = $(this)
+          .find(showMoreItem)
+          .slice(3, showMoreItem.length)
+          .clone();
+        $(this).find(".show-more__wrapper").append(clonedItems);
+        $(".show-more__wrapper > *").removeClass("disabled");
+        $(window).click(function () {
+          $(".show-more__wrapper").removeClass("active");
+        });
+        $(this)
+          .find(".show-more__btn")
+          .click(function (event) {
+            $(this)
+              .closest(".show-more")
+              .find(".show-more__wrapper")
+              .addClass("active");
+            event.stopPropagation();
+          });
+      }
+    });
+  },
 
   load() {
     console.log("load");
@@ -188,12 +270,7 @@ var app = {
     console.log("resized");
   },
 
-  portfolioSliderFn() {
-    const portfolioSwiper = new Swiper(".js-portfolio-slider", {
-      loop: false,
-      slidesPerView: 1,
-    });
-  },
+  portfolioSliderFn() {},
 
   init: function () {
     app.iconSpriteFn();
