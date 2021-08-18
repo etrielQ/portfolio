@@ -1,8 +1,8 @@
 import icons from "../icons/icons";
 const $ = require("jquery"); // if we need
 import Swup from "swup";
-import Swiper, { Mousewheel } from "swiper";
-Swiper.use([Mousewheel]);
+import Swiper, { Mousewheel, Scrollbar } from "swiper";
+Swiper.use([Mousewheel, Scrollbar]);
 import "swiper/swiper-bundle.css";
 import fullpage from "fullpage.js";
 
@@ -42,8 +42,13 @@ var app = {
     const portfolioSwiper = new Swiper(".js-portfolio-slider", {
       loop: false,
       slidesPerView: 1,
+      scrollbar: true,
+      scrollOverflow: true,
       watchSlidesVisibility: true,
       speed: 700,
+      scrollbar: {
+        el: ".js-portfolio-slider .swiper-scrollbar",
+      },
       mousewheel: {
         invert: false,
       },
@@ -82,40 +87,52 @@ var app = {
             fullpage_api.moveTo(currentIndex + 2);
           }
         });
-
         // portfolio fn
-        if (destination.anchor === "portfolio") {
-          function swiperScrollLock() {
-            if (portfolioSwiper.activeIndex == 0) {
-              console.log("birinci slider");
-              fullpage_api.setAllowScrolling(false, "down");
+        function swiperScrollLock() {
+          if (portfolioSwiper.activeIndex == 0) {
+            console.log("u are in portfolio and first slide");
+            fullpage_api.setAllowScrolling(false, "down");
+            setTimeout(() => {
               fullpage_api.setAllowScrolling(true, "up");
-            } else if (portfolioSwiper.activeIndex == 2) {
-              fullpage_api.setAllowScrolling(false, "up");
+            }, 500);
+          } else if (portfolioSwiper.activeIndex == 2) {
+            fullpage_api.setAllowScrolling(false, "up");
+
+            setTimeout(() => {
               fullpage_api.setAllowScrolling(true, "down");
-              console.log("last slider");
-            } else {
-              fullpage_api.setAllowScrolling(false);
-              console.log("normal slide");
-            }
+            }, 500);
+            console.log("last slider");
+          } else if (portfolioSwiper.activeIndex == 1) {
+            fullpage_api.setAllowScrolling(false);
           }
+        }
+        if (destination.anchor === "portfolio" && direction === "down") {
           swiperScrollLock();
 
           portfolioSwiper.on("slideChangeTransitionEnd", function () {
             swiperScrollLock();
           });
+        } else if (destination.anchor === "portfolio" && direction === "up") {
+          fullpage_api.setAllowScrolling(false, "up");
+          console.log("portfolio direction up");
+          setTimeout(() => {
+            fullpage_api.setAllowScrolling(true, "down");
+          }, 500);
         } else {
-          fullpage_api.setAllowScrolling(true);
+          setTimeout(() => {
+            fullpage_api.setAllowScrolling(true);
+          }, 500);
+        }
+        if (destination.anchor === "about") {
+          setTimeout(() => {
+            portfolioSwiper.slideTo(2);
+          }, 400);
+          portfolioSwiper.on("slideChangeTransitionEnd", function () {
+            swiperScrollLock();
+          });
         }
       },
-      onLeave: function (origin, destination, direction) {
-        // portfolio fn
-        // if (destination.anchor === "portfolio" && direction == "down") {
-        //   fullpage_api.setAllowScrolling(false, "down");
-        //   fullpage_api.setAllowScrolling(true, "up");
-        //   console.log("u are in portfolio");
-        // }
-      },
+      onLeave: function (origin, destination, direction) {},
     });
   },
 

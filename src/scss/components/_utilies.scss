@@ -14,20 +14,6 @@
     font-size: 22px;
     font-weight: 600;
   }
-  &__small {
-    width: fit-content;
-    background-color: #f6f6f6;
-    color: #c4c4c4;
-    padding: 5px 15px;
-    font-size: 14px;
-    line-height: 1em;
-    border-radius: 15px;
-    margin-left: auto;
-    margin-right: 40px;
-    position: absolute;
-    bottom: calc(100% + 7.5px);
-    left: 0;
-  }
 }
 
 .main-txt {
