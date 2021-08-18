@@ -1,5 +1,4 @@
 import css from "../scss/style.scss";
-// const $ = require("jquery"); // if we need
 import * as main from "./main";
 
 function docReady(fn) {

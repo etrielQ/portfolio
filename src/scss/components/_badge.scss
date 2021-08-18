@@ -1,5 +1,12 @@
 .badge {
   &-item {
+    &__wrapper {
+      display: flex;
+      align-items: center;
+      flex-flow: wrap;
+      width: fit-content;
+    }
+    user-select: none;
     font-weight: 600;
     font-size: 14px;
     padding: 8px 18px;
@@ -7,5 +14,9 @@
     color: var(--color-black);
     width: fit-content;
     border-radius: 20px;
+    margin-right: 15px;
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }

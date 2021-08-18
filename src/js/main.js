@@ -1,6 +1,8 @@
 import icons from "../icons/icons";
+const $ = require("jquery"); // if we need
 import Swup from "swup";
-import Swiper from "swiper";
+import Swiper, { Mousewheel, Scrollbar } from "swiper";
+Swiper.use([Mousewheel, Scrollbar]);
 import "swiper/swiper-bundle.css";
 import fullpage from "fullpage.js";
 
@@ -37,7 +39,24 @@ var app = {
   },
 
   fullpageFn() {
+    const portfolioSwiper = new Swiper(".js-portfolio-slider", {
+      loop: false,
+      slidesPerView: 1,
+      scrollbar: true,
+      scrollOverflow: true,
+      watchSlidesVisibility: true,
+      speed: 700,
+      scrollbar: {
+        el: ".js-portfolio-slider .swiper-scrollbar",
+      },
+      mousewheel: {
+        invert: false,
+      },
+    });
+
     const mainSection = document.querySelectorAll(".section");
+    const downUpBtn = document.querySelector(".js-indicator-up-down");
+
     let mainSectionArrName = [];
     for (let index = 0; index < mainSection.length; index++) {
       const element = mainSection[index];
@@ -48,17 +67,100 @@ var app = {
       anchors: mainSectionArrName,
       menu: "#mainMenu",
       autoScrolling: true,
+      normalScrollElements: ".scroll-normal",
+      afterLoad: function (origin, destination, direction) {
+        var currentIndex = destination.index;
+
+        // header title inner html
+        document.querySelector(".header__title").innerHTML = destination.anchor;
+
+        // indicator up down fn
+        if (destination.isLast == true) {
+          downUpBtn.classList.add("indicator-down--up");
+        } else {
+          downUpBtn.classList.remove("indicator-down--up");
+        }
+        downUpBtn.addEventListener("click", () => {
+          if (destination.isLast == true) {
+            fullpage_api.moveTo(1);
+          } else {
+            fullpage_api.moveTo(currentIndex + 2);
+          }
+        });
+        // portfolio fn
+        function swiperScrollLock() {
+          if (portfolioSwiper.activeIndex == 0) {
+            console.log("u are in portfolio and first slide");
+            fullpage_api.setAllowScrolling(false, "down");
+            setTimeout(() => {
+              fullpage_api.setAllowScrolling(true, "up");
+            }, 500);
+          } else if (portfolioSwiper.activeIndex == 2) {
+            fullpage_api.setAllowScrolling(false, "up");
+
+            setTimeout(() => {
+              fullpage_api.setAllowScrolling(true, "down");
+            }, 500);
+            console.log("last slider");
+          } else if (portfolioSwiper.activeIndex == 1) {
+            fullpage_api.setAllowScrolling(false);
+          }
+        }
+        if (destination.anchor === "portfolio" && direction === "down") {
+          swiperScrollLock();
+
+          portfolioSwiper.on("slideChangeTransitionEnd", function () {
+            swiperScrollLock();
+          });
+        } else if (destination.anchor === "portfolio" && direction === "up") {
+          fullpage_api.setAllowScrolling(false, "up");
+          console.log("portfolio direction up");
+          setTimeout(() => {
+            fullpage_api.setAllowScrolling(true, "down");
+          }, 500);
+        } else {
+          setTimeout(() => {
+            fullpage_api.setAllowScrolling(true);
+          }, 500);
+        }
+        if (destination.anchor === "about") {
+          setTimeout(() => {
+            portfolioSwiper.slideTo(2);
+          }, 400);
+          portfolioSwiper.on("slideChangeTransitionEnd", function () {
+            swiperScrollLock();
+          });
+        }
+      },
+      onLeave: function (origin, destination, direction) {},
     });
   },
 
+  createPreloaderFn(isActive) {
+    var isActived = isActive;
+    // console.log(isActive);
+    var prelaoder = document.createElement("div");
+    prelaoder.classList.add("preloader");
+    prelaoder.appendChild(document.createElement("div"));
+    prelaoder.querySelector("div").classList.add("preloader__icon");
+
+    if (isActived === true) {
+      document.body.appendChild(prelaoder);
+    } else {
+      document
+        .querySelector(".preloader")
+        .parentNode.removeChild(document.querySelector(".preloader"));
+    }
+  },
+
   headerColorFn() {
-    const headerLanguageBtn = document.querySelector(".js-header-color-btn");
-    if (headerLanguageBtn) {
+    const headerColorBtn = document.querySelector(".js-header-color-btn");
+    if (headerColorBtn) {
       window.addEventListener("click", function (e) {
         if (document.querySelector(".header__color").contains(e.target)) {
-          headerLanguageBtn.parentNode.classList.toggle("opened");
+          headerColorBtn.parentNode.classList.toggle("opened");
         } else {
-          headerLanguageBtn.parentNode.classList.remove("opened");
+          headerColorBtn.parentNode.classList.remove("opened");
         }
       });
       window.addEventListener("click", function (e) {
@@ -70,6 +172,47 @@ var app = {
             .parentNode.classList.add("opened");
         }
       });
+      const colorItem = document.querySelectorAll(".js-header-color");
+      const themeColor = localStorage.getItem("themeColor");
+      for (let index = 0; index < colorItem.length; index++) {
+        const element = colorItem[index];
+        const elementColor = element.getAttribute("style");
+        const elementColorName = elementColor.slice(0, -1).split(": ");
+        const colorItemActive = document.querySelectorAll(
+          ".js-header-color.active"
+        );
+        element.addEventListener("click", (colorSet) => {
+          localStorage.setItem("themeColor", "#fff500");
+          colorSet = elementColorName[1];
+          setTimeout(() => {
+            document.documentElement.style.setProperty(
+              "--color-primary",
+              elementColorName[1]
+            );
+          }, 500);
+          let colorItemActive = document.querySelectorAll(
+            ".js-header-color.active"
+          );
+          colorItemActive.forEach((eActive) => {
+            eActive.classList.remove("active");
+          });
+          if (colorSet == elementColorName[1]) {
+            app.createPreloaderFn(true);
+            localStorage.setItem("themeColor", elementColorName[1]);
+            setTimeout(() => {
+              app.createPreloaderFn(false);
+              element.classList.add("active");
+            }, 500);
+          }
+        });
+        if (themeColor == elementColorName[1]) {
+          colorItemActive.forEach((eActive) => {
+            eActive.classList.remove("active");
+          });
+          element.classList.add("active");
+        }
+      }
+      document.documentElement.style.setProperty("--color-primary", themeColor);
     }
   },
 
@@ -97,6 +240,46 @@ var app = {
     }
   },
 
+  ShowMoreFn() {
+    const showMoreParent = $(".show-more");
+    const showMoreItem = $(".show-more > *");
+    const showMoreWrp = `
+    <div class="show-more__wrapper">
+    </div>`;
+    showMoreParent.each(function () {
+      if (showMoreItem.length > 3) {
+        $(this)
+          .find(showMoreItem)
+          .slice(3, showMoreItem.length)
+          .addClass("disabled");
+        $(this).append(
+          `<span class="show-more__btn">+${
+            $(this).find(showMoreItem).length - 3
+          }</span>`
+        );
+        $(this).append(showMoreWrp);
+        var clonedItems = $(this)
+          .find(showMoreItem)
+          .slice(3, showMoreItem.length)
+          .clone();
+        $(this).find(".show-more__wrapper").append(clonedItems);
+        $(".show-more__wrapper > *").removeClass("disabled");
+        $(window).click(function () {
+          $(".show-more__wrapper").removeClass("active");
+        });
+        $(this)
+          .find(".show-more__btn")
+          .click(function (event) {
+            $(this)
+              .closest(".show-more")
+              .find(".show-more__wrapper")
+              .addClass("active");
+            event.stopPropagation();
+          });
+      }
+    });
+  },
+
   load() {
     console.log("load");
   },
@@ -104,11 +287,7 @@ var app = {
     console.log("resized");
   },
 
-  swiperTest() {
-    const swiper = new Swiper(".swiper-container", {
-      loop: true,
-    });
-  },
+  portfolioSliderFn() {},
 
   init: function () {
     app.iconSpriteFn();
@@ -116,7 +295,8 @@ var app = {
     app.fullpageFn();
     app.headerColorFn();
     app.headerLanguageFn();
-    app.swiperTest();
+    app.ShowMoreFn();
+    app.portfolioSliderFn();
   },
 };
 

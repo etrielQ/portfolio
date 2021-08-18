@@ -64,7 +64,13 @@
   height: 68px;
   display: flex;
   align-items: center;
+  cursor: pointer;
   justify-content: center;
+  &:hover {
+    &:before {
+      background-color: var(--color-primary);
+    }
+  }
   &:before {
     content: "";
     position: absolute;
@@ -75,6 +81,7 @@
     border: 5px solid var(--color-black);
     z-index: -1;
     transform: rotate(-90deg);
+    transition: $transition;
     border-radius: 30% 70% 70% 30% / 50% 50% 50% 50%;
   }
   .icon {
@@ -113,4 +120,13 @@
   position: fixed;
   bottom: 40px;
   right: 55px;
+  z-index: 3;
+  .icon {
+    transition: transform $transition;
+  }
+  &--up {
+    .icon {
+      transform: rotate(180deg);
+    }
+  }
 }
