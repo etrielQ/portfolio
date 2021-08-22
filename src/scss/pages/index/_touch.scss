@@ -1,0 +1,39 @@
+.touch {
+  &__wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    .main-title {
+      &--lg {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+    }
+  }
+  &__mail {
+    margin: 20px 0 40px 0;
+    -webkit-text-stroke: 3px black;
+    -webkit-text-fill-color: transparent;
+    font-family: $font-family-secondary;
+    transition: $transition;
+    font-weight: 700;
+    color: transparent;
+    font-size: 78px;
+    &:hover {
+      color: var(--color-primary);
+      -webkit-text-fill-color: var(--color-primary);
+    }
+  }
+  &__copyright {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 55px;
+  }
+}

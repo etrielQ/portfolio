@@ -1,8 +1,8 @@
 import icons from "../icons/icons";
 const $ = require("jquery"); // if we need
 import Swup from "swup";
-import Swiper, { Mousewheel, Scrollbar } from "swiper";
-Swiper.use([Mousewheel, Scrollbar]);
+import Swiper, { Mousewheel, Scrollbar, Autoplay } from "swiper";
+Swiper.use([Mousewheel, Scrollbar, Autoplay]);
 import "swiper/swiper-bundle.css";
 import fullpage from "fullpage.js";
 
@@ -248,20 +248,18 @@ var app = {
     </div>`;
     showMoreParent.each(function () {
       if (showMoreItem.length > 3) {
-        $(this)
+        var clonedItems = $(this)
           .find(showMoreItem)
           .slice(3, showMoreItem.length)
-          .addClass("disabled");
+          .clone();
         $(this).append(
           `<span class="show-more__btn">+${
             $(this).find(showMoreItem).length - 3
           }</span>`
         );
+        $(this).find(showMoreItem).slice(3, showMoreItem.length).remove();
+
         $(this).append(showMoreWrp);
-        var clonedItems = $(this)
-          .find(showMoreItem)
-          .slice(3, showMoreItem.length)
-          .clone();
         $(this).find(".show-more__wrapper").append(clonedItems);
         $(".show-more__wrapper > *").removeClass("disabled");
         $(window).click(function () {
@@ -277,6 +275,20 @@ var app = {
             event.stopPropagation();
           });
       }
+    });
+  },
+
+  aboutServicesSliderFn() {
+    const aboutServicesSwiper = new Swiper(".js-about-services-slider", {
+      loop: true,
+      direction: "vertical",
+      slidesPerView: 1,
+      speed: 500,
+      autoplay: {
+        delay: 1000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
     });
   },
 
@@ -297,6 +309,7 @@ var app = {
     app.headerLanguageFn();
     app.ShowMoreFn();
     app.portfolioSliderFn();
+    app.aboutServicesSliderFn();
   },
 };
 
