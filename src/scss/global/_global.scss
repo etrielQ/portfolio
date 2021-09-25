@@ -13,6 +13,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility !important;
 }
+@include bp(tablet) {
+  #fullpage,
+  .fp-section,
+  .fp-slide,
+  .fp-tableCell {
+    height: auto !important;
+  }
+}
 
 .uikit {
   &__card {
@@ -72,8 +80,8 @@ body {
     }
   }
   &__btn {
-    width: 35px;
-    height: 35px;
+    width: 28px;
+    height: 28px;
     background-color: var(--color-primary);
     color: var(--color-black);
     border-radius: 50%;
@@ -81,6 +89,7 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    font-size: 12px;
   }
   &__wrapper {
     position: absolute;

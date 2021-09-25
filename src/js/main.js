@@ -41,7 +41,6 @@ var app = {
   fullpageFn() {
     const portfolioSwiper = new Swiper(".js-portfolio-slider", {
       loop: false,
-      slidesPerView: 1,
       scrollbar: true,
       scrollOverflow: true,
       watchSlidesVisibility: true,
@@ -49,8 +48,18 @@ var app = {
       scrollbar: {
         el: ".js-portfolio-slider .swiper-scrollbar",
       },
-      mousewheel: {
-        invert: false,
+      breakpoints: {
+        769: {
+          slidesPerView: 1.2,
+          spaceBetween: 60,
+        },
+        993: {
+          slidesPerView: 1,
+          spaceBetween: 0,
+          mousewheel: {
+            invert: false,
+          },
+        },
       },
     });
 
@@ -68,6 +77,7 @@ var app = {
       menu: "#mainMenu",
       autoScrolling: true,
       normalScrollElements: ".scroll-normal",
+      responsiveWidth: 993,
       afterLoad: function (origin, destination, direction) {
         var currentIndex = destination.index;
 
@@ -88,48 +98,51 @@ var app = {
           }
         });
         // portfolio fn
-        function swiperScrollLock() {
-          if (portfolioSwiper.activeIndex == 0) {
-            console.log("u are in portfolio and first slide");
-            fullpage_api.setAllowScrolling(false, "down");
-            setTimeout(() => {
-              fullpage_api.setAllowScrolling(true, "up");
-            }, 500);
-          } else if (portfolioSwiper.activeIndex == 2) {
-            fullpage_api.setAllowScrolling(false, "up");
+        if ($(window).width() > 993) {
+          function swiperScrollLock() {
+            if (portfolioSwiper.activeIndex == 0) {
+              console.log("u are in portfolio and first slide");
+              fullpage_api.setAllowScrolling(false, "down");
+              setTimeout(() => {
+                fullpage_api.setAllowScrolling(true, "up");
+              }, 500);
+            } else if (portfolioSwiper.activeIndex == 2) {
+              fullpage_api.setAllowScrolling(false, "up");
 
+              setTimeout(() => {
+                fullpage_api.setAllowScrolling(true, "down");
+              }, 500);
+              console.log("last slider");
+            } else if (portfolioSwiper.activeIndex == 1) {
+              fullpage_api.setAllowScrolling(false);
+            }
+          }
+
+          if (destination.anchor === "portfolio" && direction === "down") {
+            swiperScrollLock();
+
+            portfolioSwiper.on("slideChangeTransitionEnd", function () {
+              swiperScrollLock();
+            });
+          } else if (destination.anchor === "portfolio" && direction === "up") {
+            fullpage_api.setAllowScrolling(false, "up");
+            console.log("portfolio direction up");
             setTimeout(() => {
               fullpage_api.setAllowScrolling(true, "down");
             }, 500);
-            console.log("last slider");
-          } else if (portfolioSwiper.activeIndex == 1) {
-            fullpage_api.setAllowScrolling(false);
+          } else {
+            setTimeout(() => {
+              fullpage_api.setAllowScrolling(true);
+            }, 500);
           }
-        }
-        if (destination.anchor === "portfolio" && direction === "down") {
-          swiperScrollLock();
-
-          portfolioSwiper.on("slideChangeTransitionEnd", function () {
-            swiperScrollLock();
-          });
-        } else if (destination.anchor === "portfolio" && direction === "up") {
-          fullpage_api.setAllowScrolling(false, "up");
-          console.log("portfolio direction up");
-          setTimeout(() => {
-            fullpage_api.setAllowScrolling(true, "down");
-          }, 500);
-        } else {
-          setTimeout(() => {
-            fullpage_api.setAllowScrolling(true);
-          }, 500);
-        }
-        if (destination.anchor === "about") {
-          setTimeout(() => {
-            portfolioSwiper.slideTo(2);
-          }, 400);
-          portfolioSwiper.on("slideChangeTransitionEnd", function () {
-            swiperScrollLock();
-          });
+          if (destination.anchor === "about") {
+            setTimeout(() => {
+              portfolioSwiper.slideTo(2);
+            }, 400);
+            portfolioSwiper.on("slideChangeTransitionEnd", function () {
+              swiperScrollLock();
+            });
+          }
         }
       },
       onLeave: function (origin, destination, direction) {},

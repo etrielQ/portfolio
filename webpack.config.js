@@ -2,7 +2,6 @@ const path = require("path");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const fs = require("fs");
 
 function generateHtmlPlugins(templateDir) {
@@ -28,7 +27,7 @@ module.exports = {
   output: {
     filename: "./js/bundle[hash].js",
     path: path.resolve(__dirname, "public"),
-    clean: true,
+    clean: false,
   },
   devtool: "source-map",
   devServer: {
@@ -67,25 +66,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "./css/[name].css",
       ignoreOrder: true,
-    }),
-    new ImageMinimizerPlugin({
-      minimizerOptions: {
-        plugins: [
-          ["gifsicle", { interlaced: true }],
-          ["jpegtran", { progressive: true }],
-          ["optipng", { optimizationLevel: 5 }],
-          [
-            "svgo",
-            {
-              plugins: [
-                {
-                  removeViewBox: false,
-                },
-              ],
-            },
-          ],
-        ],
-      },
     }),
     new HTMLWebpackPlugin({
       filename: "./icons/icons-sprite.html",
@@ -146,9 +126,5 @@ module.exports = {
       },
     ],
   },
-  resolve: {
-    alias: {
-      images: path.resolve(__dirname, "src/images"),
-    },
-  },
+  resolve: {},
 };

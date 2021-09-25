@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: flex-start;
   width: fit-content;
-  margin-right: 40px;
+  margin-right: 30px;
 
   &:last-child {
     margin-right: 0;
@@ -15,14 +15,18 @@
   }
   &__icon {
     color: var(--color-black);
-    width: 65px;
-    height: 62px;
+    width: 55px;
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     z-index: 1;
     flex-shrink: 0;
+    @include bp(desktop) {
+      width: 45px;
+      height: 42px;
+    }
     &:before {
       content: "";
       position: absolute;
@@ -38,18 +42,21 @@
     }
     .icon {
       font-size: 26px;
+      @include bp(desktop) {
+        font-size: 20px;
+      }
     }
   }
   &__txt {
     font-family: $font-family-secondary;
     font-weight: 700;
-    font-size: 20px;
-    margin-left: 20px;
+    font-size: 16px;
+    margin-left: 15px;
     color: var(--color-black);
   }
   &--bg {
     background-color: #fff;
-    padding: 15px 45px;
+    padding: 12.5px 30px;
     border-radius: 55px;
     user-select: none;
   }

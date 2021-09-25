@@ -3,6 +3,10 @@
     height: 100%;
     display: flex;
     align-items: center;
+    @include bp(tablet) {
+      height: auto;
+      padding: 75px 0;
+    }
     & > .container {
       height: 100%;
       display: flex;
@@ -13,10 +17,17 @@
     display: flex;
     align-items: stretch;
     height: 80vh;
+    @include bp(tablet) {
+      flex-direction: column-reverse;
+      height: auto;
+    }
 
     .swiper {
       &-container {
         height: 68px;
+        @include bp(tablet) {
+          height: 50px;
+        }
       }
       &-slide {
         padding: 3px 0;
@@ -31,18 +42,27 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    @include bp(tablet) {
+      width: 100%;
+      padding: 30px 150px 85px 150px;
+    }
     &:before {
       content: "";
       position: absolute;
       top: 0%;
       left: 0%;
-      width: 145%;
+      width: 125%;
       height: 100%;
       background: #fff;
       z-index: -1;
       border: 15px solid var(--color-black);
       border-radius: 22% 78% 27% 73% / 73% 25% 75% 27%;
       box-shadow: -20px 20px 0px 0px var(--color-primary);
+      @include bp(tablet) {
+        width: 100%;
+        height: 125%;
+        top: -25%;
+      }
     }
     .main {
       &-subtitle {
@@ -55,6 +75,9 @@
     }
     &__item {
       margin-bottom: 30px;
+      @include bp(tablet) {
+        margin-bottom: 20px;
+      }
       .main-title--sm {
         margin-bottom: 10px;
       }
@@ -72,6 +95,11 @@
     box-shadow: 20px 20px 0px 0px var(--color-primary);
     margin-top: auto;
     margin-bottom: auto;
+    @include bp(tablet) {
+      height: auto;
+      width: 80%;
+      margin: 0 auto;
+    }
     img {
       width: 100%;
       height: 100%;

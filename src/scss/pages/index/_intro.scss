@@ -4,14 +4,20 @@
       position: absolute;
       bottom: 55px;
       left: 70px;
+      @include bp(desktop) {
+        left: 30px;
+      }
     }
   }
   &__wrapper {
     height: 100%;
     display: flex;
     align-items: center;
+    @include bp(tablet) {
+      min-height: 100vh;
+    }
     .main-title {
-      max-width: 800px;
+      max-width: 700px;
     }
     .info-item__wrapper {
       margin-top: 60px;

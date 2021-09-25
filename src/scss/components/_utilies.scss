@@ -2,36 +2,54 @@
   line-height: 1.4em;
   font-family: $font-family-secondary;
   position: relative;
+  @include bp(desktop) {
+    line-height: 1.2em;
+  }
   &--lg {
-    font-size: 76px;
+    font-size: 58px;
     font-weight: 700;
+
+    @include bp(desktop) {
+      font-size: 46px;
+    }
   }
   &--md {
-    font-size: 38px;
+    font-size: 28px;
     font-weight: 700;
   }
   &--sm {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 600;
+    @include bp(desktop) {
+      font-size: 16px;
+    }
   }
 }
 
 .main-txt {
   line-height: 1.3em;
   font-family: $font-family-base;
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 600;
   color: var(--color-gray);
+
+  @include bp(desktop) {
+    font-size: 16px;
+  }
 }
 
 .main-subtitle {
-  font-size: 26px;
+  font-size: 18px;
   font-weight: 600;
   position: relative;
   z-index: 1;
   padding: 20px 0 20px 20px;
   line-height: 1em;
   width: fit-content;
+
+  @include bp(desktop) {
+    font-size: 16px;
+  }
   &:before {
     content: "";
     position: absolute;
