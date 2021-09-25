@@ -38,6 +38,10 @@
       margin: 15px 0 30px 0;
       font-size: 40px;
     }
+    @include bp(tablet-small) {
+      font-size: 34px;
+      -webkit-text-stroke: 1.5px black;
+    }
     &:hover {
       color: var(--color-primary);
       -webkit-text-fill-color: var(--color-primary);
@@ -46,6 +50,8 @@
   &__copyright {
     position: absolute;
     left: 50%;
+    width: 100%;
+    text-align: center;
     transform: translateX(-50%);
     bottom: 55px;
   }

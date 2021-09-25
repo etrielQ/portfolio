@@ -49,6 +49,10 @@ var app = {
         el: ".js-portfolio-slider .swiper-scrollbar",
       },
       breakpoints: {
+        577: {
+          slidesPerView: 1.1,
+          spaceBetween: 40,
+        },
         769: {
           slidesPerView: 1.2,
           spaceBetween: 60,

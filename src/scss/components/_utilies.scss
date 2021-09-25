@@ -12,6 +12,9 @@
     @include bp(desktop) {
       font-size: 46px;
     }
+    @include bp(tablet-small) {
+      font-size: 34px;
+    }
   }
   &--md {
     font-size: 28px;

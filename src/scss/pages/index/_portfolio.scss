@@ -260,6 +260,9 @@
       margin-bottom: 25px;
       padding: 75px 100px;
     }
+    @include bp(tablet-small) {
+      padding: 75px 60px;
+    }
     &:before {
       content: "";
       position: absolute;
