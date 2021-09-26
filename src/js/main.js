@@ -45,10 +45,17 @@ var app = {
       scrollOverflow: true,
       watchSlidesVisibility: true,
       speed: 700,
+      mousewheel: {
+        invert: false,
+      },
       scrollbar: {
         el: ".js-portfolio-slider .swiper-scrollbar",
       },
       breakpoints: {
+        320: {
+          slidesPerView: 1.1,
+          spaceBetween: 20,
+        },
         577: {
           slidesPerView: 1.1,
           spaceBetween: 40,
@@ -60,9 +67,6 @@ var app = {
         993: {
           slidesPerView: 1,
           spaceBetween: 0,
-          mousewheel: {
-            invert: false,
-          },
         },
       },
     });

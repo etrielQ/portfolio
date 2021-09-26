@@ -11,6 +11,9 @@
   @include bp(desktop) {
     right: 30px;
   }
+  @include bp(mobile) {
+    display: none;
+  }
   &__item {
     width: 32px;
     height: 27px;

@@ -50,6 +50,9 @@
     @include bp(tablet-small) {
       padding: 30px 50px 115px 50px;
     }
+    @include bp(mobile) {
+      padding: 20px 0px 85px 20px;
+    }
     &:before {
       content: "";
       position: absolute;
@@ -70,6 +73,10 @@
       @include bp(tablet-small) {
         left: -12.5%;
         width: 125%;
+      }
+      @include bp(mobile) {
+        box-shadow: -10px 10px 0px 0px var(--color-primary);
+        border-width: 10px;
       }
     }
     .main {
@@ -110,6 +117,10 @@
     }
     @include bp(tablet-small) {
       width: 100%;
+    }
+    @include bp(mobile) {
+      box-shadow: 10px 10px 0px 0px var(--color-primary);
+      border-width: 10px;
     }
     img {
       width: 100%;

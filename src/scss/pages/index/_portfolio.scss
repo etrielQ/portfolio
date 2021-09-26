@@ -147,6 +147,9 @@
   .swiper-container {
     overflow: initial;
     position: static;
+    @include bp(tablet) {
+      padding-bottom: 150px;
+    }
   }
   .swiper-scrollbar {
     height: 10px !important;
@@ -207,6 +210,9 @@
       align-items: center;
       justify-content: flex-start;
       margin-right: 25px;
+      @include bp(tablet-small) {
+        margin-right: 10px;
+      }
       &__item {
         background-color: #c4c4c4;
         width: 12px;
@@ -225,6 +231,9 @@
       width: 100%;
       color: #ababab;
       transition: color $transition;
+      @include bp(tablet-small) {
+        font-size: 16px;
+      }
       &:hover {
         color: var(--color-primary);
       }
@@ -263,6 +272,9 @@
     @include bp(tablet-small) {
       padding: 75px 60px;
     }
+    @include bp(mobile) {
+      padding: 0;
+    }
     &:before {
       content: "";
       position: absolute;
@@ -280,6 +292,9 @@
         height: 100%;
         top: 0;
         left: 0;
+      }
+      @include bp(mobile) {
+        display: none;
       }
     }
     .main-title {
@@ -315,6 +330,13 @@
     align-items: stretch;
     justify-content: flex-start;
     flex-flow: wrap;
+    @include bp(mobile) {
+      position: absolute;
+      transform: translateY(calc(-100% - 40px));
+      top: 0;
+      z-index: 2;
+      left: 20px;
+    }
     &__item {
       width: fit-content;
       padding: 5px 15px;

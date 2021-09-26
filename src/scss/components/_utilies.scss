@@ -15,10 +15,16 @@
     @include bp(tablet-small) {
       font-size: 34px;
     }
+    @include bp(mobile) {
+      font-size: 26px;
+    }
   }
   &--md {
     font-size: 28px;
     font-weight: 700;
+    @include bp(mobile) {
+      font-size: 22px;
+    }
   }
   &--sm {
     font-size: 18px;
@@ -64,6 +70,10 @@
     border-radius: 30% 70% 70% 30% / 50% 50% 50% 50%;
     z-index: -1;
     background-color: var(--color-primary);
+    @include bp(mobile) {
+      height: 50px;
+      width: 60px;
+    }
   }
   &--centered {
     padding-left: 0;

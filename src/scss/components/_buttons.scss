@@ -124,6 +124,9 @@
   @include bp(desktop) {
     right: 16px;
   }
+  @include bp(mobile) {
+    display: none;
+  }
   .icon {
     transition: transform $transition;
   }

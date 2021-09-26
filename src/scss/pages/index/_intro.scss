@@ -1,11 +1,19 @@
 .intro {
   .social-item {
+    @include bp(mobile) {
+      margin-right: 0;
+    }
     &__wrapper {
       position: absolute;
       bottom: 55px;
       left: 70px;
       @include bp(desktop) {
         left: 30px;
+      }
+      @include bp(mobile) {
+        left: 20px;
+        width: calc(100% - 40px);
+        justify-content: space-between;
       }
     }
   }
@@ -18,9 +26,25 @@
     }
     .main-title {
       max-width: 700px;
+      @include bp(tablet-small) {
+        margin-top: 15px;
+      }
     }
     .info-item__wrapper {
       margin-top: 60px;
+      @include bp(mobile) {
+        flex-direction: column;
+        margin-top: 30px;
+      }
+    }
+    .info-item {
+      @include bp(mobile) {
+        margin-right: 0;
+        margin-bottom: 15px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
     }
   }
 }
